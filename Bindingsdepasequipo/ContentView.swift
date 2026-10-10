@@ -18,43 +18,60 @@ struct ContentView: View {
     }
 
     var body: some View {
+        NavigationStack{
+        
         ScrollView(.vertical) {
-            LazyVStack(alignment: .leading) {
-                Text("Departamentos")
-                    .font(.title)
-                
-                Toggle("Marcar todos como favoritos", isOn: Binding(
-                    get: { todosfavoritos },
-                    set: { nuevo in
-                        for i in departamentos.indices {
-                            departamentos[i].favorito = nuevo
+            
+            
+                LazyVStack(alignment: .leading) {
+                    Text("Departamentos")
+                        .font(.title)
+                    
+                    Toggle("Marcar todos como favoritos", isOn: Binding(
+                        get: { todosfavoritos },
+                        set: { nuevo in
+                            for i in departamentos.indices {
+                                departamentos[i].favorito = nuevo
+                            }
                         }
+                    ))
+
+                    if todosfavoritos {
+                        GroupBox { Text("Todos han sido marcados") }
                     }
-                ))
+                    
+                    
+                    
+                    
+                    
+                    ForEach($departamentos) {
+                        
+                        
 
-                if todosfavoritos {
-                    GroupBox { Text("Todos han sido marcados") }
-                }
-
-                ForEach($departamentos) { $depa in
-                    departamentoView(direccion: depa.direccion, nombre: depa.nombre,
-                                     precio: depa.precio, superficie: depa.superficie,
-                                     calificacion: depa.calificacion,
-                                     reservar: Binding(
-                                        get: { reservados.contains(depa.id) },
-                                        set: { nuevo in
-                                            if nuevo {
-                                                if reservados.count < maxReservas && !reservados.contains(depa.id) {
-                                                    reservados.append(depa.id)
+                        $depa in
+                        
+                        
+                        departamentoView(direccion: depa.direccion, nombre: depa.nombre,
+                                         precio: depa.precio, superficie: depa.superficie,
+                                         calificacion: depa.calificacion,
+                                         reservar: Binding(
+                                            get: { reservados.contains(depa.id) },
+                                            set: { nuevo in
+                                                if nuevo {
+                                                    if reservados.count < maxReservas && !reservados.contains(depa.id) {
+                                                        reservados.append(depa.id)
+                                                    }
+                                                } else {
+                                                    reservados.removeAll { $0 == depa.id }
                                                 }
-                                            } else {
-                                                reservados.removeAll { $0 == depa.id }
                                             }
-                                        }
-                                     ), favorito: $depa.favorito,
-                                     imagen: depa.imagen)
+                                         ), favorito: $depa.favorito,
+                                         imagen: depa.imagen)
+                    }
                 }
+                
             }
+            
             .padding(.horizontal)
         }
     }

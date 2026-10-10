@@ -21,13 +21,16 @@ struct departamentoView: View {
     var body: some View {
         VStack {
             ZStack{
-                Image(imagen)
-                    .resizable()
-                    .frame(width: 350, height: 200)
-                    .overlay(reservar ? Rectangle()
-                        .fill(Color.black.opacity(0.5)) : Rectangle()
-                        .fill(Color.black.opacity(0.0)))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                NavigationLink(destination: DepaInfoView(a:nombre, b:superficie)){
+                    Image(imagen)
+                        .resizable()
+                        .frame(width: 350, height: 200)
+                        .overlay(reservar ? Rectangle()
+                            .fill(Color.black.opacity(0.5)) : Rectangle()
+                            .fill(Color.black.opacity(0.0)))
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                }
+                
                 
                 Text(reservar ? "Reservado" : " " )
                     .foregroundColor(.white)

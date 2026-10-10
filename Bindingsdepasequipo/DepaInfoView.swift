@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct DepaInfoView: View {
+    
+    @State var a: String = "a"
+    @State var b: String = "b"
+    
+    
     var body: some View {
         ScrollView(.vertical){
             VStack( alignment: .center){
@@ -17,10 +22,10 @@ struct DepaInfoView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     
 
-                Label("hola", systemImage: "location")
+                Label(a, systemImage: "location")
                     .font(.largeTitle)
                 
-                Label("hola", systemImage: "location")
+                Label(b, systemImage: "location")
                     .font(.largeTitle)
                 
                 Label("hola", systemImage: "location")
